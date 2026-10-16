@@ -1,0 +1,46 @@
+/* Scimmietta che cammina: posizione e larghezza le imposta scripts/scimmia.ts */
+.scimmia {
+  position: fixed;
+  z-index: 35;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+.scimmia img {
+  display: block;
+  height: auto;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(2px 5px 4px rgba(20, 20, 20, .28));
+}
+/* Le immagini guardano a sinistra: verso destra si specchiano */
+.scimmia.verso-destra img { transform: scaleX(-1); }
+.scimmia.hop { animation: salto .32s var(--e-quint); }
+@keyframes salto {
+  40% { translate: 0 -22px; }
+}
+
+/* Su mobile la scimmietta che cammina coprirebbe il testo: compare solo ferma nell'angolo di ogni sezione */
+.scimmia-angolo { display: none; }
+@media (max-width: 899px) {
+  .scimmia { display: none; }
+  .scimmia-angolo {
+    display: block;
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+    height: auto;
+    pointer-events: none;
+    filter: drop-shadow(2px 4px 3px rgba(20, 20, 20, .25));
+    opacity: 0;
+    transform: translateY(18px) scale(.9);
+    transform-origin: 50% 100%;
+    transition: opacity .4s ease, transform .6s var(--e-quint);
+  }
+  .scimmia-angolo.visto { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scimmia { display: none; }
+  .scimmia-angolo { transition: none; opacity: 1; transform: none; }
+}

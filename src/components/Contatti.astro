@@ -1,0 +1,22 @@
+---
+import '../styles/contatti.css';
+import { contatti } from '../data/contatti';
+
+// I link si costruiscono qui, al momento della build: nella pagina finale non serve JavaScript
+const mailto = contatti.email ? `mailto:${contatti.email}` : '#';
+---
+
+<section data-tone="dark" data-scena="contatti" class="panel p-nero contact" id="contatti">
+  <h2 class="giant bri heavy">Scrivimi<span class="dot">.</span></h2>
+  <div class="end">
+    <p>Hai un progetto in mente o un problema da risolvere?</p>
+    <a class="btn" href={mailto}>Iniziamo</a>
+  </div>
+  <ul class="links">
+    <li><span class="soft">Email</span><a href={mailto}>{contatti.email || 'Da inserire'}</a></li>
+    <li>
+      <span class="soft">LinkedIn</span>
+      <a href={contatti.linkedin || '#'} target="_blank" rel="noopener">{contatti.linkedin ? 'Il mio profilo' : 'Da inserire'}</a>
+    </li>
+  </ul>
+</section>

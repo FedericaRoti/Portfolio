@@ -1,0 +1,21 @@
+---
+import '../styles/metodo.css';
+
+const passi = [
+  { parola: 'Ascolto', peso: 'heavy', nota: 'Domande prima delle soluzioni: cosa serve, a chi, entro quando.' },
+  { parola: 'disegno', peso: 'light', nota: 'Schizzi e prototipi, finché la strada è chiara.' },
+  { parola: 'costruisco', peso: 'heavy', nota: 'Frontend, backend e AI dove porta un vantaggio vero.' },
+  { parola: 'rilascio', peso: 'light', nota: 'Online, misurato, migliorato.', punto: true },
+];
+---
+
+<section data-tone="light" data-scena="metodo" class="panel p-carta method" id="metodo">
+  <ul class="stack">
+    {passi.map(p => (
+      <li>
+        <span class:list={['bri', p.peso]}>{p.parola}{p.punto && <span class="dot">.</span>}</span>
+        <small class="soft">{p.nota}</small>
+      </li>
+    ))}
+  </ul>
+</section>

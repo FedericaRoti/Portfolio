@@ -1,0 +1,38 @@
+---
+// Un pannello del nastro a tutto schermo per un prodotto di src/data/progetti.ts
+import type { Prodotto } from '../data/progetti';
+
+interface Props {
+  progetto: Prodotto;
+}
+
+const { progetto: p } = Astro.props;
+// I fondi scuri cambiano il colore di marchio e menu (vedi scripts/tono.ts)
+const tono = p.fondo === 'nero' ? 'dark' : 'light';
+---
+
+<section data-tone={tono} data-scena={p.scena} class:list={['panel', 'work', `p-${p.fondo}`]}>
+  <h3 class:list={['giant', 'bri', p.peso, { long: p.lungo }]}>{p.nome}</h3>
+  <div class="info">
+    <p class="meta soft">{p.meta}</p>
+    <p>{p.testo}</p>
+    {p.link && (
+      <a class="btn" href={p.link.url} target={p.link.url.startsWith('http') ? '_blank' : undefined} rel="noopener">
+        {p.link.etichetta}
+      </a>
+    )}
+  </div>
+  {p.schermi ? (
+    <div class="tablet">
+      <div class="tablet-schermo">
+        {p.schermi.map((m, i) => (
+          <img src={m.src} alt={m.alt} class:list={['schermata', { prima: i === 0 }]} loading="lazy" />
+        ))}
+      </div>
+    </div>
+  ) : p.media ? (
+    <div class="media"><img src={p.media.src} alt={p.media.alt} width="1600" height="900" loading="lazy" /></div>
+  ) : (
+    <div class="media soft">Registrazione da aggiungere</div>
+  )}
+</section>

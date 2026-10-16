@@ -1,0 +1,26 @@
+---
+// Un solo pannello per tutti i siti: schede affiancate invece di un pannello ciascuno
+import { siti } from '../data/progetti';
+---
+
+<section data-tone="light" data-scena="siti" class="panel p-cartoncino sites">
+  <h3 class="giant bri light">Siti<span class="dot">.</span></h3>
+  <p class="sites-lead soft">Siti e landing page fatti per altri, dal progetto alla messa online.</p>
+  <ul class="cards" style={`--n: ${siti.length}`}>
+    {siti.map(s => (
+      <li class="card">
+        {s.media ? (
+          <div class="media"><img src={s.media.src} alt={s.media.alt} width="1600" height="900" loading="lazy" /></div>
+        ) : (
+          <div class="media soft">Registrazione da aggiungere</div>
+        )}
+        <div class="card-text">
+          <p class="meta soft">{s.meta}</p>
+          <h4 class="bri">{s.nome}</h4>
+          <p>{s.testo}</p>
+          {s.link && <a class="link" href={s.link.url} target="_blank" rel="noopener">{s.link.etichetta}</a>}
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>

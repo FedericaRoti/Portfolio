@@ -1,0 +1,39 @@
+/* La hero è disegnata su un fotogramma fisso 1600×900 e scalata da scripts/titolo.ts (--s) */
+.hero { position: relative; height: 100dvh; overflow: hidden; background: var(--carta); }
+.frame { position: absolute; left: 50%; top: 50%; width: 1600px; height: 900px; transform: translate(-50%, -50%) scale(var(--s, 1)); }
+.hi { position: absolute; left: 66px; top: 150px; margin: 0; font-size: 22px; color: var(--nero-soft); }
+.title { position: absolute; inset: 0; margin: 0; font-weight: 400; }
+.w { position: absolute; display: block; white-space: nowrap; }
+.title .heavy { font-size: 278px; }
+.title .light { font-size: 132px; }
+.w1 { left: 50px; top: 172px; }
+.w2 { left: 830px; top: 296px; }
+.w3 { left: 60px; top: 478px; }
+.w4 { left: 400px; top: 430px; }
+/* .ch e .hot sono create da JavaScript: per questo questi stili sono globali e non scoped */
+.title .ch { display: inline-block; transition: color .08s linear; }
+.title .ch.hot { color: var(--arancio); }
+
+.note { position: absolute; margin: 0; left: 64px; top: 640px; width: 300px; font-size: 16px; line-height: 1.45; color: var(--nero-soft); }
+.hero .ctas { position: absolute; left: 64px; top: 760px; display: flex; gap: 28px; align-items: center; font-size: 18px; }
+/* Scimmietta seduta sul punto di "costruisco.": larghezza uguale a quella che cammina (132px × scala 0.9, diviso --s) per non cambiare taglia quando parte */
+.scimmia-hero {
+  position: absolute;
+  width: calc(118.8px / var(--s, 1));
+  left: calc(1346px - .47 * 118.8px / var(--s, 1));
+  top: calc(598px - .69 * 118.8px / var(--s, 1));
+  height: auto;
+  filter: drop-shadow(2px 5px 4px rgba(20, 20, 20, .28));
+}
+.has-scimmia .scimmia-hero { visibility: hidden; }
+
+/* Sotto 900px la hero esce dal fotogramma fisso e va in colonna */
+@media (max-width: 899px) {
+  .hero { height: auto; padding: 96px 20px 120px; }
+  .frame { position: static; width: auto; height: auto; transform: none; }
+  .hi, .title, .w, .note, .hero .ctas { position: static; width: auto; transform: none; }
+  .scimmia-hero { display: none; }
+  .title .heavy { font-size: 25vw; }
+  .title .light { font-size: 11vw; }
+  .note { margin: 20px 0; }
+}

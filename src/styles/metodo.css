@@ -1,0 +1,9 @@
+.panel.method { height: auto; min-height: 100dvh; padding-top: 14dvh; padding-bottom: 8dvh; display: grid; align-content: center; }
+.method .stack { margin: 0; padding: 0; list-style: none; }
+.method .stack li { display: flex; align-items: baseline; gap: 2vw; }
+.method .stack .heavy, .method .stack .light { font-size: min(13.5vw, 17dvh); }
+.method .stack small { font-size: clamp(14px, 1.1vw, 17px); max-width: 26ch; line-height: 1.4; }
+
+@media (max-width: 899px) {
+  .panel.method { padding-top: 88px; padding-bottom: 120px; }
+}

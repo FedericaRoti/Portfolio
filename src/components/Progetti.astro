@@ -1,0 +1,18 @@
+---
+import '../styles/progetti.css';
+import { prodotti } from '../data/progetti';
+import PannelloProgetto from './PannelloProgetto.astro';
+import PannelloSiti from './PannelloSiti.astro';
+---
+
+<!-- #viaggio viene bloccato da scripts/nastro.ts mentre .track scorre in orizzontale -->
+<div class="viaggio" id="viaggio">
+  <div class="track">
+    <section data-tone="dark" data-scena="base" class="panel p-nero intro" id="progetti">
+      <p class="lead">Prima i prodotti che costruisco, poi i siti che ho fatto per altri. Lavori veri, alcuni ancora in corso.</p>
+      <h2 class="giant bri heavy">Progetti<span class="dot">.</span></h2>
+    </section>
+    {prodotti.map(p => <PannelloProgetto progetto={p} />)}
+    <PannelloSiti />
+  </div>
+</div>

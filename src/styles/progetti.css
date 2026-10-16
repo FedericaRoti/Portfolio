@@ -1,0 +1,98 @@
+/* Nastro orizzontale: ogni pannello è largo quanto lo schermo e ha il suo colore */
+.viaggio { position: relative; overflow: hidden; }
+.track { display: flex; width: max-content; will-change: transform; }
+.panel { position: relative; width: 100vw; height: 100dvh; flex: none; overflow: hidden; padding: 110px var(--gutter) 48px; }
+.p-nero { background: var(--nero); color: var(--carta); }
+.p-carta { background: var(--carta); color: var(--nero); }
+.p-cartoncino { background: var(--cartoncino); color: var(--nero); }
+.p-arancio { background: var(--arancio); color: var(--nero); }
+.p-nero .soft, .p-nero .meta { color: rgba(243, 241, 236, .65); }
+.p-arancio .btn { background: var(--nero); color: var(--carta); }
+/* Sul fondo arancio il grigio non si legge: testo secondario in nero attenuato */
+.p-arancio .soft, .p-arancio .meta { color: rgba(20, 20, 20, .72); }
+
+/* Le dimensioni giganti dipendono anche dall'altezza (dvh): su schermi bassi si rimpiccioliscono invece di tagliarsi */
+.giant { position: absolute; margin: 0; white-space: nowrap; will-change: transform; }
+
+.intro .giant { left: var(--gutter); bottom: 6dvh; font-size: min(28vw, 44dvh); }
+.intro .lead { position: absolute; left: var(--gutter); top: 22dvh; margin: 0; max-width: 30ch; font-size: clamp(20px, 1.8vw, 28px); line-height: 1.4; }
+
+.work .giant { left: var(--gutter); top: 11dvh; font-size: min(19vw, 30dvh); }
+.work .giant.long { font-size: min(10.5vw, 22dvh); }
+/* Riquadro immagine comune a prodotti e siti; nei prodotti è posizionato in basso a destra */
+.media {
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: rgba(20, 20, 20, .12);
+  font-size: 15px;
+  box-shadow: 0 30px 60px -40px rgba(20, 20, 20, .7);
+}
+.work .media { position: absolute; right: var(--gutter); bottom: 8dvh; width: min(54vw, 88dvh); }
+.p-nero .media { background: rgba(243, 241, 236, .1); }
+.media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Cornice di tablet con le schermate dell'app: sovrapposte, la prima visibile; scripts/nastro.ts le fa cambiare con lo scorrimento */
+.work .tablet {
+  position: absolute; right: var(--gutter); bottom: 8dvh; width: min(57vw, 90dvh);
+  aspect-ratio: 3 / 2; padding: clamp(10px, 1.3vw, 18px);
+  border-radius: clamp(20px, 2.4vw, 34px); background: var(--nero);
+  box-shadow: 0 30px 60px -36px rgba(20, 20, 20, .75), inset 0 0 0 2px rgba(243, 241, 236, .14);
+}
+.p-nero .tablet { background: #2b2926; }
+.tablet-schermo { position: relative; width: 100%; height: 100%; border-radius: clamp(8px, 1vw, 14px); overflow: hidden; background: #e8e0d4; }
+.tablet .schermata { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; }
+.tablet .schermata.prima { opacity: 1; }
+.work .info { position: absolute; left: var(--gutter); bottom: 22dvh; width: min(30vw, 380px); display: grid; gap: 14px; justify-items: start; }
+.work .info p { margin: 0; font-size: clamp(17px, 1.3vw, 20px); line-height: 1.45; }
+.work .meta { font-size: 14px; }
+
+
+/* Pannello dei siti: titolo più piccolo dei prodotti e schede affiancate in basso */
+.sites .giant { left: var(--gutter); top: 12dvh; font-size: min(12vw, 18dvh); }
+.sites .sites-lead { position: absolute; right: var(--gutter); top: 16dvh; margin: 0; max-width: 30ch; text-align: right; font-size: clamp(16px, 1.25vw, 19px); line-height: 1.45; }
+.sites .cards {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 7dvh;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 48px);
+  align-items: end;
+}
+.sites .card { display: grid; gap: 16px; }
+.sites .card .media {
+  position: static;
+  width: 100%;
+  max-width: calc(40dvh * 16 / 9);
+}
+.sites .card-text { display: grid; gap: 6px; justify-items: start; }
+.sites .card-text p { margin: 0; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.45; max-width: 42ch; }
+.sites .card h4 { margin: 0; font-weight: 600; font-size: clamp(24px, 2.2vw, 34px); letter-spacing: -.02em; line-height: 1.1; }
+.sites .card .meta { font-size: 14px; }
+
+/* Sotto 900px (e con movimento ridotto) il nastro torna una colonna verticale */
+@media (max-width: 899px) {
+  .track { display: block; width: auto; }
+  /* In fondo 120px per la scimmietta ferma nell'angolo (scimmia.css) */
+  .panel { width: auto; height: auto; min-height: 0; padding: 88px 20px 120px; }
+  .giant { position: static; display: block; }
+  .intro .lead, .work .info, .work .media, .work .tablet { position: static; width: auto; margin-top: 24px; }
+  .work .giant { font-size: 21vw; }
+  .work .giant.light { font-size: 15vw; }
+  .work .giant.long { font-size: 11.5vw; white-space: normal; }
+  .intro .giant { font-size: 25vw; margin-top: 28px; }
+  .sites .giant { font-size: 21vw; }
+  .sites .sites-lead { position: static; text-align: left; margin-top: 16px; }
+  .sites .cards { position: static; grid-template-columns: 1fr; margin-top: 32px; gap: 40px; }
+  .sites .card .media { max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track { display: block; width: auto; }
+  .panel { width: auto; }
+}

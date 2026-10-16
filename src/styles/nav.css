@@ -1,0 +1,32 @@
+.mark {
+  position: fixed;
+  z-index: 40;
+  top: 22px;
+  left: var(--gutter);
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-variation-settings: "opsz" 96, "wdth" 82;
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: -.05em;
+  line-height: 1;
+  color: var(--nav-ink, var(--nero));
+  transition: color .3s;
+}
+.menu {
+  position: fixed;
+  z-index: 40;
+  top: 30px;
+  right: var(--gutter);
+  display: flex;
+  gap: 32px;
+  font-size: 17px;
+  color: var(--nav-ink, var(--nero));
+  transition: color .3s;
+}
+/* Classi messe da scripts/tono.ts in base allo sfondo che marchio e menu hanno sotto */
+.dark-l .mark, .dark-r .menu { --nav-ink: var(--carta); }
+
+@media (max-width: 899px) {
+  .menu { gap: 0; top: 26px; }
+  .menu a:not(:last-child) { display: none; }
+}

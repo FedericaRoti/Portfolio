@@ -1,0 +1,29 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: var(--carta); color: var(--nero); }
+body { font-family: "Figtree", sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--arancio); outline-offset: 3px; }
+
+/* Tipografia: Bricolage in due voci, pesante-stretta e leggera-larga */
+.bri { font-family: "Bricolage Grotesque", sans-serif; }
+.heavy { font-variation-settings: "opsz" 96, "wdth" 82; font-weight: 700; letter-spacing: -.04em; line-height: .86; }
+.light { font-variation-settings: "opsz" 96, "wdth" 100; font-weight: 300; letter-spacing: -.04em; line-height: .9; }
+.dot { color: var(--arancio); }
+.soft { color: var(--nero-soft); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 30px;
+  border-radius: var(--radius);
+  background: var(--arancio);
+  color: var(--nero);
+  font-weight: 600;
+  font-size: 18px;
+  white-space: nowrap;
+  transition: transform .25s var(--e-quint), background-color .2s;
+}
+.btn:hover { transform: translateY(-2px); background: #f06a2e; }
+.btn:active { transform: translateY(0) scale(.97); }
+.link { font-weight: 500; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
