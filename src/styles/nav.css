@@ -29,4 +29,22 @@
 @media (max-width: 899px) {
   .menu { gap: 0; top: 26px; }
   .menu a:not(:last-child) { display: none; }
+  /* Su mobile il contenuto scorre sotto marchio e menu, sopra qualsiasi sfondo: una barra dà loro un fondo sempre leggibile.
+     Scura o chiara a seconda di cosa c'è sotto (classe dark-l, vedi scripts/tono.ts) */
+  body::before {
+    content: "";
+    position: fixed;
+    z-index: 39;
+    inset: 0 0 auto 0;
+    height: 68px;
+    background: rgba(243, 241, 236, .92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(20, 20, 20, .08);
+    pointer-events: none;
+    transition: background .3s, box-shadow .3s;
+  }
+  .dark-l::before { background: rgba(20, 20, 20, .9); box-shadow: 0 1px 0 rgba(243, 241, 236, .12); }
+  .mark, .menu { --nav-ink: var(--nero); }
+  .dark-l .mark, .dark-l .menu { --nav-ink: var(--carta); }
 }

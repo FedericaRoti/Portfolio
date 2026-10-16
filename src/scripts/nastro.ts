@@ -3,7 +3,27 @@ import { gsap, ScrollTrigger } from './scroll';
 import { aggiornaTono } from './tono';
 import { NASTRO } from '../config';
 
+// Le schermate di un tablet stanno sovrapposte: scorrendo si dissolvono una nell'altra.
+// La timeline copre tutta la corsa del tablet, così ogni schermata resta visibile per un tratto uguale; `cambio` sposta il punto del passaggio
+function dissolvenza(tablet: HTMLElement, trigger: ScrollTrigger.Vars, cambio: number) {
+  const schermate = tablet.querySelectorAll<HTMLElement>('.schermata');
+  const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { ...trigger, scrub: true } });
+  schermate.forEach((img, i) => {
+    if (i === 0) return;
+    tl.to(schermate[i - 1], { opacity: 0, duration: .3 }, i + cambio);
+    tl.to(img, { opacity: 1, duration: .3 }, i + cambio);
+  });
+  tl.to({}, { duration: schermate.length }, 0);
+}
+
 export function initNastro() {
+  // Su mobile la pagina è una colonna: il tablet cambia schermata mentre attraversa lo schermo in verticale
+  gsap.matchMedia().add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', () => {
+    document.querySelectorAll<HTMLElement>('.tablet').forEach(t => {
+      dissolvenza(t, { trigger: t, start: 'top 70%', end: 'bottom 40%' }, -.15);
+    });
+  });
+
   // gsap.matchMedia crea e smonta da solo le animazioni quando la condizione cambia (per esempio ridimensionando)
   gsap.matchMedia().add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
     const track = document.querySelector<HTMLElement>('.track')!;
@@ -30,17 +50,9 @@ export function initNastro() {
       end: () => '+=' + (distanza() * NASTRO.lunghezza + innerHeight * NASTRO.sosta),
       invalidateOnRefresh: true,
     });
-    // Il tablet cambia schermata mentre il pannello lo attraversa: dissolvenza dall'una alla successiva
+    // Il tablet cambia schermata mentre il pannello lo attraversa
     document.querySelectorAll<HTMLElement>('.track .tablet').forEach(t => {
-      const schermate = t.querySelectorAll<HTMLElement>('.schermata');
-      const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: t.closest('.panel'), containerAnimation: move, start: 'left 60%', end: 'right 65%', scrub: true } });
-      schermate.forEach((img, i) => {
-        if (i === 0) return;
-        tl.to(schermate[i - 1], { opacity: 0, duration: .3 }, i + .3);
-        tl.to(img, { opacity: 1, duration: .3 }, i + .3);
-      });
-      // La durata della timeline copre tutta la corsa del tablet: ogni schermata resta visibile per un tratto uguale
-      tl.to({}, { duration: schermate.length }, 0);
+      dissolvenza(t, { trigger: t.closest('.panel'), containerAnimation: move, start: 'left 60%', end: 'right 65%' }, .3);
     });
     // Le parole giganti e le immagini viaggiano a velocità diverse dal pannello: profondità
     document.querySelectorAll<HTMLElement>('.track .giant').forEach(g => {

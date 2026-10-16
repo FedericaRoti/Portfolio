@@ -33,6 +33,7 @@
   .frame { position: static; width: auto; height: auto; transform: none; }
   .hi, .title, .w, .note, .hero .ctas { position: static; width: auto; transform: none; }
   .scimmia-hero { display: none; }
+  .title { margin-top: 24px; }
   .title .heavy { font-size: 25vw; }
   .title .light { font-size: 11vw; }
   .note { margin: 20px 0; }
