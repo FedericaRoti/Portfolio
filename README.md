@@ -2,7 +2,7 @@
 
 Il mio portfolio da developer full-stack. L'ho costruito come un progetto a sé: tipografia grande, movimento legato allo scroll e una scimmietta di feltro che accompagna la pagina e cambia posa a seconda della sezione.
 
-Online: https://portfolio-zeta-ruby-5zcapnulh5.vercel.app/
+Online: https://federica-rotiroti.vercel.app/
 
 ## Cosa c'è dentro
 
